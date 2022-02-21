@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @Service
@@ -27,10 +28,10 @@ public class GoogleBooksApi {
                 .uri(uriBuilder ->
                         uriBuilder.path("/volumes")
                                 .queryParam("q", query)
-                                .queryParam("filter", filter)
-                                .queryParam("projection", projection)
-                                .queryParam("startIndex", startIndex)
-                                .queryParam("maxResult", maxResult)
+                                .queryParamIfPresent("filter", Optional.ofNullable(filter))
+                                .queryParamIfPresent("projection", Optional.ofNullable(projection))
+                                .queryParamIfPresent("startIndex", Optional.of(startIndex))
+                                .queryParamIfPresent("maxResult", Optional.of(maxResult))
                                 .queryParam("key", key)
                                 .build()
                 )
