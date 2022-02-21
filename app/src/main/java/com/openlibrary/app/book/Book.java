@@ -38,6 +38,10 @@ public class Book {
         this.language = language;
     }
 
+    public Book() {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
