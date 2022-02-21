@@ -45,7 +45,7 @@ public class GoogleBooksApi {
         Flux<Book> bookFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
-                        uriBuilder.path("/volumes")
+                        uriBuilder.path("/volumes/{bookId}")
                                 .queryParam("key", key)
                                 .build(bookId)
                 )
