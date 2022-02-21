@@ -1,0 +1,5 @@
+google:
+  apis:
+    books:
+      url: https://www.googleapis.com/books/v1
+      key: AIzaSyDZMsQC3TUA6Q4VMkcEguTIW636xD7dmTE
