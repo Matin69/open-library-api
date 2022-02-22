@@ -1,6 +1,8 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -42,7 +44,8 @@ public class GoogleBooksApi {
     }
 
     public void get(String volumeId,
-                    Consumer<VolumeResponse> volumeSubscriber) {
+                    Consumer<VolumeResponse> volumeSubscriber,
+                    Consumer<Throwable> onError) {
         Mono<VolumeResponse> volumeResponseMono = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
@@ -51,7 +54,12 @@ public class GoogleBooksApi {
                                 .build(volumeId)
                 )
                 .retrieve()
-                .bodyToMono(VolumeResponse.class);
+                .onStatus(
+                        httpStatus -> httpStatus == HttpStatus.NOT_FOUND,
+                        clientResponse -> Mono.error(new ResourceNotFoundException())
+                )
+                .bodyToMono(VolumeResponse.class)
+                .doOnError(onError);
         volumeResponseMono.subscribe(volumeSubscriber);
     }
 }

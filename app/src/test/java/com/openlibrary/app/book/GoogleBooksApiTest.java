@@ -1,5 +1,6 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class GoogleBooksApiTest {
@@ -38,7 +38,7 @@ class GoogleBooksApiTest {
 
     @Test
     void get() throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(1);
+        CountDownLatch countDownLatch = new CountDownLatch(2);
         googleBooksApi.get(
                 "S04tXAPxaikC",
                 volume -> {
@@ -46,6 +46,17 @@ class GoogleBooksApiTest {
                     assertNotNull(volume.getId());
                     assertNotNull(volume.getVolumeInfo());
                     assertNotNull(volume.getVolumeInfo().getTitle());
+                    countDownLatch.countDown();
+                },
+                throwable -> {
+                }
+        );
+        googleBooksApi.get(
+                "zyTC0lF9jgY2",
+                volumeResponse -> {
+                },
+                throwable -> {
+                    assertInstanceOf(ResourceNotFoundException.class, throwable);
                     countDownLatch.countDown();
                 }
         );
