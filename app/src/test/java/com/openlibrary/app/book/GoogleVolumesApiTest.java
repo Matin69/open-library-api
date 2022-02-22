@@ -11,15 +11,15 @@ import java.util.concurrent.CountDownLatch;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class GoogleBooksApiTest {
+class GoogleVolumesApiTest {
 
     @Autowired
-    GoogleBooksApi googleBooksApi;
+    GoogleVolumesApi googleVolumesApi;
 
     @Test
     void list() throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(2);
-        googleBooksApi.list(
+        googleVolumesApi.list(
                 "hamlet",
                 null,
                 0,
@@ -35,7 +35,7 @@ class GoogleBooksApiTest {
                 throwable -> {
                 }
         );
-        googleBooksApi.list(
+        googleVolumesApi.list(
                 "",
                 null,
                 0,
@@ -54,7 +54,7 @@ class GoogleBooksApiTest {
     @Test
     void get() throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(2);
-        googleBooksApi.get(
+        googleVolumesApi.get(
                 "S04tXAPxaikC",
                 volume -> {
                     assertNotNull(volume);
@@ -66,7 +66,7 @@ class GoogleBooksApiTest {
                 throwable -> {
                 }
         );
-        googleBooksApi.get(
+        googleVolumesApi.get(
                 "zyTC0lF9jgY2",
                 volumeResponse -> {
                 },

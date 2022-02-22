@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @Service
-public class GoogleBooksApi {
+public class GoogleVolumesApi {
 
     @Value("${google.apis.books.url}")
     private String baseUrl;
