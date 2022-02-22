@@ -40,17 +40,17 @@ public class GoogleBooksApi {
         booksFlux.subscribe(booksSubscriber);
     }
 
-    public void get(String bookId,
-                    Consumer<Book> bookSubscriber) {
-        Flux<Book> bookFlux = WebClient.create(baseUrl)
+    public void get(String volumeId,
+                    Consumer<VolumeResponse> volumeSubscriber) {
+        Flux<VolumeResponse> bookFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
-                        uriBuilder.path("/volumes/{bookId}")
+                        uriBuilder.path("/volumes/{volumeId}")
                                 .queryParam("key", key)
-                                .build(bookId)
+                                .build(volumeId)
                 )
                 .retrieve()
-                .bodyToFlux(Book.class);
-        bookFlux.subscribe(bookSubscriber);
+                .bodyToFlux(VolumeResponse.class);
+        bookFlux.subscribe(volumeSubscriber);
     }
 }
