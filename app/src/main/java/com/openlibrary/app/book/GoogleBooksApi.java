@@ -27,9 +27,9 @@ public class GoogleBooksApi {
                      @Nullable int startIndex,
                      @Nullable int maxResult,
                      @Nullable String projection,
-                     @NonNull Consumer<VolumeResponse> volumeConsumer,
+                     @NonNull Consumer<VolumesCollectionResponse> volumeConsumer,
                      @NonNull Consumer<Throwable> onError) {
-        Mono<VolumeResponse> booksFlux = WebClient.create(baseUrl)
+        Mono<VolumesCollectionResponse> booksFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/volumes")
@@ -46,7 +46,7 @@ public class GoogleBooksApi {
                         httpStatus -> httpStatus == HttpStatus.BAD_REQUEST,
                         clientResponse -> Mono.error(new BadRequestException())
                 )
-                .bodyToMono(VolumeResponse.class)
+                .bodyToMono(VolumesCollectionResponse.class)
                 .doOnError(onError);
         booksFlux.subscribe(volumeConsumer);
     }

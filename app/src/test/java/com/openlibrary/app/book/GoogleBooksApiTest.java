@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,21 +17,24 @@ class GoogleBooksApiTest {
 
     @Test
     void list() throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(20);
-        List<Book> books = new ArrayList<>();
+        CountDownLatch countDownLatch = new CountDownLatch(1);
         googleBooksApi.list(
                 "hamlet",
                 null,
                 0,
                 20,
                 null,
-                book -> {
-                    books.add(book);
+                volumesCollectionResponse -> {
+                    assertNotEquals(0, volumesCollectionResponse.getTotalItems());
+                    assertNotNull(volumesCollectionResponse.getItems());
+                    assertNotEquals(0, volumesCollectionResponse.getItems().size());
+                    System.out.println(volumesCollectionResponse);
                     countDownLatch.countDown();
+                },
+                throwable -> {
                 }
         );
         countDownLatch.await();
-        assertNotEquals(0, books.size());
     }
 
     @Test
