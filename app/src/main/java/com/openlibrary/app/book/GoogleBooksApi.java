@@ -3,6 +3,7 @@ package com.openlibrary.app.book;
 import com.openlibrary.app.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -43,9 +44,9 @@ public class GoogleBooksApi {
         booksFlux.subscribe(booksSubscriber);
     }
 
-    public void get(String volumeId,
-                    Consumer<VolumeResponse> volumeSubscriber,
-                    Consumer<Throwable> onError) {
+    public void get(@NonNull String volumeId,
+                    @NonNull Consumer<VolumeResponse> volumeSubscriber,
+                    @NonNull Consumer<Throwable> onError) {
         Mono<VolumeResponse> volumeResponseMono = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
