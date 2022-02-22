@@ -1,9 +1,11 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.BadRequestException;
 import com.openlibrary.app.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -20,12 +22,13 @@ public class GoogleBooksApi {
     @Value("${google.apis.books.key}")
     private String key;
 
-    public void list(String query,
-                     String filter,
-                     int startIndex,
-                     int maxResult,
-                     String projection,
-                     Consumer<VolumeResponse> volumeConsumer) {
+    public void list(@NonNull String query,
+                     @Nullable String filter,
+                     @Nullable int startIndex,
+                     @Nullable int maxResult,
+                     @Nullable String projection,
+                     @NonNull Consumer<VolumeResponse> volumeConsumer,
+                     @NonNull Consumer<Throwable> onError) {
         Mono<VolumeResponse> booksFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
@@ -39,7 +42,12 @@ public class GoogleBooksApi {
                                 .build()
                 )
                 .retrieve()
-                .bodyToMono(VolumeResponse.class);
+                .onStatus(
+                        httpStatus -> httpStatus == HttpStatus.BAD_REQUEST,
+                        clientResponse -> Mono.error(new BadRequestException())
+                )
+                .bodyToMono(VolumeResponse.class)
+                .doOnError(onError);
         booksFlux.subscribe(volumeConsumer);
     }
 
