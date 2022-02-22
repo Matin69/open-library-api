@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class GoogleBooksApi {
                      int maxResult,
                      String projection,
                      Consumer<VolumeResponse> volumeConsumer) {
-        Flux<VolumeResponse> booksFlux = WebClient.create(baseUrl)
+        Mono<VolumeResponse> booksFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/volumes")
@@ -40,7 +39,7 @@ public class GoogleBooksApi {
                                 .build()
                 )
                 .retrieve()
-                .bodyToFlux(VolumeResponse.class);
+                .bodyToMono(VolumeResponse.class);
         booksFlux.subscribe(volumeConsumer);
     }
 
