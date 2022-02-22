@@ -26,8 +26,8 @@ public class GoogleBooksApi {
                      int startIndex,
                      int maxResult,
                      String projection,
-                     Consumer<Book> booksSubscriber) {
-        Flux<Book> booksFlux = WebClient.create(baseUrl)
+                     Consumer<VolumeResponse> volumeConsumer) {
+        Flux<VolumeResponse> booksFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/volumes")
@@ -40,8 +40,8 @@ public class GoogleBooksApi {
                                 .build()
                 )
                 .retrieve()
-                .bodyToFlux(Book.class);
-        booksFlux.subscribe(booksSubscriber);
+                .bodyToFlux(VolumeResponse.class);
+        booksFlux.subscribe(volumeConsumer);
     }
 
     public void get(@NonNull String volumeId,
