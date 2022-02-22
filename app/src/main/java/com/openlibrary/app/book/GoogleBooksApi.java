@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -42,7 +43,7 @@ public class GoogleBooksApi {
 
     public void get(String volumeId,
                     Consumer<VolumeResponse> volumeSubscriber) {
-        Flux<VolumeResponse> bookFlux = WebClient.create(baseUrl)
+        Mono<VolumeResponse> volumeResponseMono = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/volumes/{volumeId}")
@@ -50,7 +51,7 @@ public class GoogleBooksApi {
                                 .build(volumeId)
                 )
                 .retrieve()
-                .bodyToFlux(VolumeResponse.class);
-        bookFlux.subscribe(volumeSubscriber);
+                .bodyToMono(VolumeResponse.class);
+        volumeResponseMono.subscribe(volumeSubscriber);
     }
 }
