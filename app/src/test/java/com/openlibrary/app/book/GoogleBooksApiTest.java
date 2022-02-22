@@ -1,5 +1,6 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.BadRequestException;
 import com.openlibrary.app.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ class GoogleBooksApiTest {
 
     @Test
     void list() throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(1);
+        CountDownLatch countDownLatch = new CountDownLatch(2);
         googleBooksApi.list(
                 "hamlet",
                 null,
@@ -32,6 +33,19 @@ class GoogleBooksApiTest {
                     countDownLatch.countDown();
                 },
                 throwable -> {
+                }
+        );
+        googleBooksApi.list(
+                "",
+                null,
+                0,
+                20,
+                null,
+                volumesCollectionResponse -> {
+                },
+                throwable -> {
+                    assertInstanceOf(BadRequestException.class, throwable);
+                    countDownLatch.countDown();
                 }
         );
         countDownLatch.await();
