@@ -36,7 +36,10 @@ class GoogleVolumesApiTest {
     }
 
     @Test
-    void get() throws InterruptedException {
-
+    void get() {
+        VolumeResponse volumeResponse = googleVolumesApi.get("S04tXAPxaikC");
+        assertNotNull(volumeResponse);
+        assertNotNull(volumeResponse.getId());
+        assertNotNull(volumeResponse.getVolumeInfo());
     }
 }

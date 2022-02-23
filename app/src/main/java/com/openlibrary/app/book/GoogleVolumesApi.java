@@ -43,6 +43,14 @@ public class GoogleVolumesApi {
         return response.getBody();
     }
 
-    public void get(@NonNull String volumeId) {
+    public VolumeResponse get(@NonNull String volumeId) {
+        ResponseEntity<VolumeResponse> response = restTemplate.getForEntity(
+                UriComponentsBuilder.fromPath("/volumes/{id}")
+                        .queryParam("key", key)
+                        .build(volumeId)
+                        .toString(),
+                VolumeResponse.class
+        );
+        return response.getBody();
     }
 }
