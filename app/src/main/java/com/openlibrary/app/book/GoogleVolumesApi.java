@@ -22,13 +22,13 @@ public class GoogleVolumesApi {
     @Value("${google.apis.books.key}")
     private String key;
 
-    public void list(@NonNull String query,
-                     @Nullable String filter,
-                     @Nullable int startIndex,
-                     @Nullable int maxResult,
-                     @Nullable String projection,
-                     @NonNull Consumer<VolumesCollectionResponse> volumeConsumer,
-                     @NonNull Consumer<Throwable> onError) {
+    public Mono<VolumesCollectionResponse> list(@NonNull String query,
+                                                @Nullable String filter,
+                                                @Nullable int startIndex,
+                                                @Nullable int maxResult,
+                                                @Nullable String projection,
+                                                @NonNull Consumer<VolumesCollectionResponse> volumeConsumer,
+                                                @NonNull Consumer<Throwable> onError) {
         Mono<VolumesCollectionResponse> booksFlux = WebClient.create(baseUrl)
                 .get()
                 .uri(uriBuilder ->
@@ -48,7 +48,7 @@ public class GoogleVolumesApi {
                 )
                 .bodyToMono(VolumesCollectionResponse.class)
                 .doOnError(onError);
-        booksFlux.subscribe(volumeConsumer);
+        return booksFlux;
     }
 
     public void get(@NonNull String volumeId,
