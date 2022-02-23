@@ -23,9 +23,10 @@ public class AppApplication {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    public RestTemplate restTemplate(RestTemplateBuilder builder, ResponseErrorHandlerImpl responseErrorHandler) {
         return builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(baseUrl))
+                .errorHandler(responseErrorHandler)
                 .build();
     }
 }
