@@ -1,8 +1,11 @@
 package com.openlibrary.app.book;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
+
+import java.util.Set;
+import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping(path = "/books")
@@ -15,12 +18,19 @@ public class BooksController {
     }
 
     @GetMapping
-    public Mono<VolumesCollectionResponse> list(@RequestParam String query,
-                                                @RequestParam(required = false) String filter,
-                                                @RequestParam(required = false) Integer startIndex,
-                                                @RequestParam(required = false) Integer maxResult,
-                                                @RequestParam(required = false) String projection) {
-        return bookService.list(query, filter, 0, 0, projection);
+    @Async
+    public Future<Set<Book>> list(@RequestParam String query,
+                                  @RequestParam(required = false) String filter,
+                                  @RequestParam(required = false) Integer startIndex,
+                                  @RequestParam(required = false) Integer maxResult,
+                                  @RequestParam(required = false) String projection) {
+        return bookService.list(
+                query,
+                filter,
+                startIndex,
+                maxResult,
+                projection
+        );
     }
 
     @GetMapping(path = "/{id}")
