@@ -12,7 +12,7 @@ public class ResponseErrorHandlerImpl implements ResponseErrorHandler {
 
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
-        return response.getStatusCode().is4xxClientError();
+        return response.getStatusCode().is4xxClientError() || response.getStatusCode().is5xxServerError();
     }
 
     @Override
@@ -21,5 +21,7 @@ public class ResponseErrorHandlerImpl implements ResponseErrorHandler {
             throw new ResourceNotFoundException();
         else if (response.getStatusCode() == HttpStatus.BAD_REQUEST)
             throw new BadRequestException();
+        else if (response.getStatusCode() == HttpStatus.SERVICE_UNAVAILABLE)
+            throw new ResourceNotFoundException();
     }
 }
