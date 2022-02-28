@@ -18,7 +18,7 @@ class BooksControllerMockMvcTest {
     MockMvc mockMvc;
 
     @Test
-    void list() throws Exception {
+    void testList() throws Exception {
         mockMvc.perform(
                         get("/books")
                                 .queryParam("query", "hamlet")
