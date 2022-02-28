@@ -32,4 +32,17 @@ class BooksControllerMockMvcTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void testGet() throws Exception {
+        mockMvc.perform(
+                        get("/books/S04tXAPxaikC")
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+        mockMvc.perform(
+                        get("/books/kbkjbkjbjkbkbjbkkbjkknknkn")
+                )
+                .andExpect(status().isNotFound());
+    }
 }

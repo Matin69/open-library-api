@@ -1,5 +1,6 @@
 package com.openlibrary.app.book;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -26,5 +27,10 @@ public class BookService {
         return response.getItems().stream()
                 .map(bookConverter::toBook)
                 .collect(Collectors.toSet());
+    }
+
+    public Book get(@NonNull String bookId) {
+        VolumeResponse response = volumesApi.get(bookId);
+        return bookConverter.toBook(response);
     }
 }

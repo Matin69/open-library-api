@@ -1,6 +1,5 @@
 package com.openlibrary.app.book;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -31,8 +30,7 @@ public class BooksController {
     }
 
     @GetMapping(path = "/{id}")
-    ResponseEntity<?> get(@PathVariable String id) {
-        // get a book
-        return null;
+    Book get(@PathVariable String id) {
+        return bookService.get(id);
     }
 }
