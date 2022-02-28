@@ -24,16 +24,16 @@ public class GoogleVolumesApi {
 
     public VolumesCollectionResponse list(@NonNull String query,
                                           @Nullable String filter,
-                                          @Nullable int startIndex,
-                                          @Nullable int maxResult,
+                                          @Nullable Integer startIndex,
+                                          @Nullable Integer maxResult,
                                           @Nullable String projection) {
         ResponseEntity<VolumesCollectionResponse> response = restTemplate.getForEntity(
                 UriComponentsBuilder.fromPath("/volumes")
                         .queryParam("q", query)
                         .queryParamIfPresent("filter", Optional.ofNullable(filter))
                         .queryParamIfPresent("projection", Optional.ofNullable(projection))
-                        .queryParamIfPresent("startIndex", Optional.of(startIndex))
-                        .queryParamIfPresent("maxResult", Optional.of(maxResult))
+                        .queryParamIfPresent("startIndex", Optional.ofNullable(startIndex))
+                        .queryParamIfPresent("maxResult", Optional.ofNullable(maxResult))
                         .queryParam("key", key)
                         .build()
                         .toUri()

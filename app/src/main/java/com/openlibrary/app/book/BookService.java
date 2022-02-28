@@ -20,8 +20,8 @@ public class BookService {
 
     public CompletableFuture<Set<Book>> list(String query,
                                              String filter,
-                                             int startIndex,
-                                             int maxResult,
+                                             Integer startIndex,
+                                             Integer maxResult,
                                              String projection) {
         VolumesCollectionResponse response = volumesApi.list(query, filter, startIndex, maxResult, projection);
         Set<Book> books = response.getItems().stream()
