@@ -25,5 +25,11 @@ class BooksControllerMockMvcTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
+        mockMvc.perform(
+                        get("/books")
+                                .queryParam("query", "")
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }
