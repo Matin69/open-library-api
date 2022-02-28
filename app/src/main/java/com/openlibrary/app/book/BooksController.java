@@ -1,11 +1,9 @@
 package com.openlibrary.app.book;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
-import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping(path = "/books")
@@ -18,12 +16,11 @@ public class BooksController {
     }
 
     @GetMapping
-    @Async
-    public Future<Set<Book>> list(@RequestParam String query,
-                                  @RequestParam(required = false) String filter,
-                                  @RequestParam(required = false) Integer startIndex,
-                                  @RequestParam(required = false) Integer maxResult,
-                                  @RequestParam(required = false) String projection) {
+    public Set<Book> list(@RequestParam String query,
+                          @RequestParam(required = false) String filter,
+                          @RequestParam(required = false) Integer startIndex,
+                          @RequestParam(required = false) Integer maxResult,
+                          @RequestParam(required = false) String projection) {
         return bookService.list(
                 query,
                 filter,
