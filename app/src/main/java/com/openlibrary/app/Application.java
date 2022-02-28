@@ -13,13 +13,13 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 @SpringBootApplication
 @Configuration
 @EnableAsync
-public class AppApplication {
+public class Application {
 
     @Value("${google.apis.books.url}")
     private String baseUrl;
 
     public static void main(String[] args) {
-        SpringApplication.run(AppApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean
