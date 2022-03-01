@@ -1,27 +1,29 @@
 package com.openlibrary.app.user;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
 
-    @PostMapping
-    ResponseEntity<?> create() {
-        // Create a user
-        return null;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping
-    ResponseEntity<?> list() {
-        // List all users
-        return null;
+    @PostMapping
+    UserInfo create(@RequestBody UserCreateRequest userCreateRequest) {
+        return userService.create(userCreateRequest);
     }
 
     @GetMapping(path = "/{userId}")
-    ResponseEntity<?> get(@PathVariable String userId) {
-        // Get a user
-        return null;
+    UserInfo get(@PathVariable Long userId) {
+        return userService.get(userId);
+    }
+
+    @DeleteMapping(path = "/{userId}")
+    void delete(@PathVariable Long userId) {
+        userService.delete(userId);
     }
 }
