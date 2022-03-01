@@ -27,6 +27,12 @@ public class UserService {
     }
 
     public void delete(Long userId) {
-        userRepository.deleteById(userId);
+        userRepository.findById(userId)
+                .ifPresentOrElse(
+                        user -> userRepository.deleteById(userId),
+                        () -> {
+                            throw new ResourceNotFoundException();
+                        }
+                );
     }
 }
