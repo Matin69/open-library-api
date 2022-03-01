@@ -2,6 +2,8 @@ package com.openlibrary.app.user;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
@@ -13,7 +15,7 @@ public class UserController {
     }
 
     @PostMapping
-    UserInfo create(@RequestBody UserCreateRequest userCreateRequest) {
+    UserInfo create(@RequestBody @Valid UserCreateRequest userCreateRequest) {
         return userService.create(userCreateRequest);
     }
 
