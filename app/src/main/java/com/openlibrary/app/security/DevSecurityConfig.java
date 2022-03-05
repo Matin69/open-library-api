@@ -1,4 +1,4 @@
-package com.openlibrary.app;
+package com.openlibrary.app.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
