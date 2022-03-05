@@ -4,16 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-@Configuration
+@EnableWebSecurity
 @Profile("production")
+@Configuration
 public class ProdSecurityConfig extends SecurityConfig {
 
     @Override
@@ -31,22 +30,16 @@ public class ProdSecurityConfig extends SecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(restAuthEntryPoint())
-                .and()
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .anyRequest().hasAnyRole("ADMIN", "USER");
+                .anyRequest().hasAnyRole("ADMIN", "USER")
+                .and()
+                .formLogin();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationEntryPoint restAuthEntryPoint() {
-        return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
     }
 }
