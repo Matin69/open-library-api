@@ -4,13 +4,13 @@ import com.openlibrary.app.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserServiceImpl {
 
     private final UserRepository userRepository;
 
     private final UserConverter userConverter;
 
-    public UserService(UserRepository userRepository, UserConverter userConverter) {
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
     }
