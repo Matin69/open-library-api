@@ -1,4 +1,4 @@
-package com.openlibrary.app.book.profile;
+package com.openlibrary.app.book.production;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
