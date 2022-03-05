@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class BookServiceImpl {
+public class BookServiceImpl implements BookService {
 
     private final GoogleVolumesApi volumesApi;
 
@@ -18,6 +18,7 @@ public class BookServiceImpl {
         this.bookConverter = bookConverter;
     }
 
+    @Override
     public Set<Book> list(String query,
                           String filter,
                           Integer startIndex,
@@ -29,6 +30,7 @@ public class BookServiceImpl {
                 .collect(Collectors.toSet());
     }
 
+    @Override
     public Book get(@NonNull String bookId) {
         VolumeResponse response = volumesApi.get(bookId);
         return bookConverter.toBook(response);
