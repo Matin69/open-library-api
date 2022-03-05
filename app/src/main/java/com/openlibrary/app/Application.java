@@ -25,7 +25,7 @@ public class Application {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder, GoogleApisErrorHandlerImpl responseErrorHandler) {
+    public RestTemplate restTemplate(RestTemplateBuilder builder, GoogleApisErrorHandler responseErrorHandler) {
         return builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(baseUrl))
                 .errorHandler(responseErrorHandler)

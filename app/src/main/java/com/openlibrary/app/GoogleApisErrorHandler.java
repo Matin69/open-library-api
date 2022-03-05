@@ -8,7 +8,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import java.io.IOException;
 
 @Component
-public class GoogleApisErrorHandlerImpl implements ResponseErrorHandler {
+public class GoogleApisErrorHandler implements ResponseErrorHandler {
 
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
