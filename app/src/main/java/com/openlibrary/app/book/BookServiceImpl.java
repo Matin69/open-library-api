@@ -7,13 +7,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class BookService {
+public class BookServiceImpl {
 
     private final GoogleVolumesApi volumesApi;
 
     private final BookConverter bookConverter;
 
-    public BookService(GoogleVolumesApi volumesApi, BookConverter bookConverter) {
+    public BookServiceImpl(GoogleVolumesApi volumesApi, BookConverter bookConverter) {
         this.volumesApi = volumesApi;
         this.bookConverter = bookConverter;
     }

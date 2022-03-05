@@ -8,10 +8,10 @@ import java.util.Set;
 @RequestMapping(path = "/books")
 public class BooksController {
 
-    private final BookService bookService;
+    private final BookServiceImpl bookServiceImpl;
 
-    public BooksController(BookService bookService) {
-        this.bookService = bookService;
+    public BooksController(BookServiceImpl bookServiceImpl) {
+        this.bookServiceImpl = bookServiceImpl;
     }
 
     @GetMapping
@@ -20,7 +20,7 @@ public class BooksController {
                           @RequestParam(required = false) Integer startIndex,
                           @RequestParam(required = false) Integer maxResult,
                           @RequestParam(required = false) String projection) {
-        return bookService.list(
+        return bookServiceImpl.list(
                 query,
                 filter,
                 startIndex,
@@ -31,6 +31,6 @@ public class BooksController {
 
     @GetMapping(path = "/{id}")
     Book get(@PathVariable String id) {
-        return bookService.get(id);
+        return bookServiceImpl.get(id);
     }
 }
