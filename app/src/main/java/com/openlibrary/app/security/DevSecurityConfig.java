@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Configuration
-@Profile("dev")
+@Profile({"default", "dev"})
 public class DevSecurityConfig extends SecurityConfig {
 
     @Override
