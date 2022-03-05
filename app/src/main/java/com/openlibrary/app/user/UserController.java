@@ -8,24 +8,24 @@ import javax.validation.Valid;
 @RequestMapping(path = "/users")
 public class UserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
-    public UserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
     UserInfo create(@RequestBody @Valid UserCreateRequest userCreateRequest) {
-        return userServiceImpl.create(userCreateRequest);
+        return userService.create(userCreateRequest);
     }
 
     @GetMapping(path = "/{userId}")
     UserInfo get(@PathVariable Long userId) {
-        return userServiceImpl.get(userId);
+        return userService.get(userId);
     }
 
     @DeleteMapping(path = "/{userId}")
     void delete(@PathVariable Long userId) {
-        userServiceImpl.delete(userId);
+        userService.delete(userId);
     }
 }
