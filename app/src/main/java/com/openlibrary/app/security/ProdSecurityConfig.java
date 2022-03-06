@@ -35,6 +35,8 @@ public class ProdSecurityConfig extends SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
+                .csrf().disable()
+                .cors().disable()
                 .formLogin();
     }
 
