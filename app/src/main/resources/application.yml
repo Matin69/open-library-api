@@ -5,6 +5,7 @@ google:
       key: AIzaSyDZMsQC3TUA6Q4VMkcEguTIW636xD7dmTE
     auth:
       url: https://accounts.google.com/o/oauth2/v2/auth
+      tokenUrl: https://oauth2.googleapis.com/token
       clientId: 525145220387-fd7014egeq81s9e9cbm38srcc61hg90l.apps.googleusercontent.com
       redirectUri: http://localhost:8080/auth/login/oauth2/callback
       responseType: code
