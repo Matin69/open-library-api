@@ -9,6 +9,8 @@ public class GoogleAuthProperties {
 
     private final String url;
 
+    private final String tokenUrl;
+
     private final String clientId;
 
     private final String redirectUri;
@@ -17,8 +19,9 @@ public class GoogleAuthProperties {
 
     private final String scope;
 
-    public GoogleAuthProperties(String url, String clientId, String redirectUri, String responseType, String scope) {
+    public GoogleAuthProperties(String url, String tokenUrl, String clientId, String redirectUri, String responseType, String scope) {
         this.url = url;
+        this.tokenUrl = tokenUrl;
         this.clientId = clientId;
         this.redirectUri = redirectUri;
         this.responseType = responseType;
@@ -43,5 +46,9 @@ public class GoogleAuthProperties {
 
     public String getScope() {
         return scope;
+    }
+
+    public String getTokenUrl() {
+        return tokenUrl;
     }
 }
