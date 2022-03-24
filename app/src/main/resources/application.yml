@@ -10,5 +10,6 @@ google:
       clientSecret: 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
       grantType: authorization_code
       redirectUri: http://localhost:8080/auth/login/oauth2/callback
+      tokenRedirectUri: http://localhost:8080/auth/login/oauth2/token/callback
       responseType: code
       scope: https://www.googleapis.com/auth/books
