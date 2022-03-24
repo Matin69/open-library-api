@@ -8,6 +8,7 @@ google:
       tokenUrl: https://oauth2.googleapis.com/token
       clientId: 525145220387-fd7014egeq81s9e9cbm38srcc61hg90l.apps.googleusercontent.com
       clientSecret: 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
+      grantType: authorization_code
       redirectUri: http://localhost:8080/auth/login/oauth2/callback
       responseType: code
       scope: https://www.googleapis.com/auth/books
