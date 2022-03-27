@@ -1,9 +1,11 @@
 package com.openlibrary.app.security;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,21 +14,27 @@ import java.io.IOException;
 @RequestMapping(path = "/auth/login")
 public class AuthController {
 
-    private final GoogleAuthProperties googleAuthProperties;
+    private final AuthService authService;
 
-    public AuthController(GoogleAuthProperties googleAuthProperties) {
-        this.googleAuthProperties = googleAuthProperties;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @GetMapping
     public void login(HttpServletResponse response) throws IOException {
-        String googleAuthRedirect = UriComponentsBuilder.fromHttpUrl(googleAuthProperties.getUrl())
-                .queryParam("client_id", googleAuthProperties.getClientId())
-                .queryParam("redirect_uri", googleAuthProperties.getRedirectUri())
-                .queryParam("response_type", googleAuthProperties.getResponseType())
-                .queryParam("scope", googleAuthProperties.getScope())
-                .build()
-                .toString();
-        response.sendRedirect(googleAuthRedirect);
+        response.sendRedirect(authService.getAuthServerUri());
+    }
+
+    @GetMapping(path = "/oauth2/callback")
+    public ResponseEntity<?> loginCallback(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String error) {
+        if (error != null) {
+            throw new IllegalStateException("Google auth error : " + error);
+        } else if (authService.authenticate(code)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }
