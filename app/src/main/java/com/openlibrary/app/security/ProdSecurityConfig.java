@@ -30,7 +30,7 @@ public class ProdSecurityConfig extends SecurityConfig {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/**/login").permitAll()
+                .antMatchers("/**/login/**").permitAll()
                 .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
                 .csrf().disable()
