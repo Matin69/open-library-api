@@ -23,7 +23,7 @@ public class GoogleAuthApi {
                 googleAuthProperties.getClientSecret(),
                 code,
                 googleAuthProperties.getGrantType(),
-                googleAuthProperties.getTokenRedirectUri()
+                googleAuthProperties.getRedirectUri()
         );
         ResponseEntity<TokenRequestResponse> response = restTemplate.postForEntity(
                 googleAuthProperties.getTokenUrl(),
