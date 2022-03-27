@@ -1,5 +1,6 @@
 package com.openlibrary.app.book;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -18,7 +19,7 @@ public class GoogleVolumesApi {
 
     private final RestTemplate restTemplate;
 
-    public GoogleVolumesApi(RestTemplate restTemplate) {
+    public GoogleVolumesApi(@Qualifier("rest-google-books") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
