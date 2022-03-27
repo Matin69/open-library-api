@@ -17,12 +17,12 @@ public class BooksController {
     }
 
     @GetMapping("/books")
-    public Set<Book> list(@RequestParam String query,
-                          @RequestParam(required = false) String filter,
-                          @RequestParam(required = false) Integer startIndex,
-                          @RequestParam(required = false) Integer maxResult,
-                          @RequestParam(required = false) String projection) {
-        return bookService.list(
+    public Set<Book> search(@RequestParam String query,
+                            @RequestParam(required = false) String filter,
+                            @RequestParam(required = false) Integer startIndex,
+                            @RequestParam(required = false) Integer maxResult,
+                            @RequestParam(required = false) String projection) {
+        return bookService.search(
                 query,
                 filter,
                 startIndex,
@@ -31,7 +31,7 @@ public class BooksController {
         );
     }
 
-    @GetMapping(path = "/books/{id}")
+    @GetMapping("/books/{id}")
     public Book get(@PathVariable String id) {
         return bookService.get(id);
     }

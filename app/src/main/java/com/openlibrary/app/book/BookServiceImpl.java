@@ -19,11 +19,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Set<Book> list(String query,
-                          String filter,
-                          Integer startIndex,
-                          Integer maxResult,
-                          String projection) {
+    public Set<Book> search(String query,
+                            String filter,
+                            Integer startIndex,
+                            Integer maxResult,
+                            String projection) {
         VolumesCollectionResponse response = volumesApi.list(query, filter, startIndex, maxResult, projection);
         return response.getItems().stream()
                 .map(bookConverter::toBook)
