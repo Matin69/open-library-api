@@ -17,21 +17,18 @@ public class GoogleAuthProperties {
 
     private final String redirectUri;
 
-    private final String tokenRedirectUri;
-
     private final String grantType;
 
     private final String responseType;
 
     private final String scope;
 
-    public GoogleAuthProperties(String url, String tokenUrl, String clientId, String clientSecret, String redirectUri, String tokenRedirectUri, String grantType, String responseType, String scope) {
+    public GoogleAuthProperties(String url, String tokenUrl, String clientId, String clientSecret, String redirectUri, String grantType, String responseType, String scope) {
         this.url = url;
         this.tokenUrl = tokenUrl;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
-        this.tokenRedirectUri = tokenRedirectUri;
         this.grantType = grantType;
         this.responseType = responseType;
         this.scope = scope;
@@ -67,9 +64,5 @@ public class GoogleAuthProperties {
 
     public String getGrantType() {
         return grantType;
-    }
-
-    public String getTokenRedirectUri() {
-        return tokenRedirectUri;
     }
 }
