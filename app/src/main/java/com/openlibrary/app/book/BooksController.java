@@ -32,7 +32,7 @@ public class BooksController {
     }
 
     @GetMapping(path = "/books/{id}")
-    Book get(@PathVariable String id) {
+    public Book get(@PathVariable String id) {
         return bookService.get(id);
     }
 }
