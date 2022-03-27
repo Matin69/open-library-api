@@ -25,10 +25,18 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder, GoogleApisErrorHandler responseErrorHandler) {
+    @Bean(name = "rest-google-books")
+    public RestTemplate restTemplateGoogleBooks(RestTemplateBuilder builder, GoogleApisErrorHandler responseErrorHandler) {
         return builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(baseUrl))
+                .errorHandler(responseErrorHandler)
+                .build();
+    }
+
+    @Bean(name = "rest-google-auth")
+    public RestTemplate restTemplateGoogleAuth(RestTemplateBuilder builder,
+                                               GoogleApisErrorHandler responseErrorHandler) {
+        return builder
                 .errorHandler(responseErrorHandler)
                 .build();
     }
