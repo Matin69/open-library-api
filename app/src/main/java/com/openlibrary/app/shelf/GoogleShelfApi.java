@@ -20,10 +20,10 @@ public class GoogleShelfApi {
         this.restTemplate = restTemplate;
     }
 
-    public GoogleCollectionResponse<Shelf> getMyLibraryShelves(String accessToken) {
+    public GoogleCollectionResponse<ShelfResponse> getMyLibraryShelves(String accessToken) {
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.add("Authorization", "Bearer " + accessToken);
-        ResponseEntity<GoogleCollectionResponse<Shelf>> response = restTemplate.exchange(
+        ResponseEntity<GoogleCollectionResponse<ShelfResponse>> response = restTemplate.exchange(
                 UriComponentsBuilder.fromPath("/mylibrary/bookshelves").toUriString(),
                 HttpMethod.GET,
                 new HttpEntity<>(requestHeaders),

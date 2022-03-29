@@ -15,8 +15,8 @@ public class ShelvesServiceImpl implements ShelvesService {
     }
 
     @Override
-    public List<Shelf> getUserShelves(String userAccessToken) {
-        GoogleCollectionResponse<Shelf> userShelves = googleShelfApi.getMyLibraryShelves(userAccessToken);
+    public List<ShelfResponse> getUserShelves(String userAccessToken) {
+        GoogleCollectionResponse<ShelfResponse> userShelves = googleShelfApi.getMyLibraryShelves(userAccessToken);
         return userShelves.getItems();
     }
 }

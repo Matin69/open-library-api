@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ShelvesService {
 
-    List<Shelf> getUserShelves(String userAccessToken);
+    List<ShelfResponse> getUserShelves(String userAccessToken);
 }

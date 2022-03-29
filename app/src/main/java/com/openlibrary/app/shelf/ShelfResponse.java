@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Shelf {
+public class ShelfResponse {
 
     private String id;
 
@@ -20,7 +20,7 @@ public class Shelf {
 
     private long booksCount;
 
-    public Shelf(String id, String title, ShelfAccessType shelfAccessType, Date creationTime, long booksCount) {
+    public ShelfResponse(String id, String title, ShelfAccessType shelfAccessType, Date creationTime, long booksCount) {
         this.id = id;
         this.title = title;
         this.shelfAccessType = shelfAccessType;
@@ -32,8 +32,8 @@ public class Shelf {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Shelf shelf = (Shelf) o;
-        return id.equals(shelf.id);
+        ShelfResponse shelfResponse = (ShelfResponse) o;
+        return id.equals(shelfResponse.id);
     }
 
     @Override
