@@ -25,11 +25,14 @@ public class User {
 
     private String password;
 
-    public User(String name, String email, String gender, String familyName, String password) {
+    private String refreshToken;
+
+    public User(String name, String email, String gender, String familyName, String password, String refreshToken) {
         this(name, email, password);
         this.gender = gender;
         this.familyName = familyName;
         this.password = password;
+        this.refreshToken = refreshToken;
     }
 
     public User(String name, String email, String password) {
