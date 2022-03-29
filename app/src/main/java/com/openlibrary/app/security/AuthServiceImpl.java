@@ -1,5 +1,10 @@
 package com.openlibrary.app.security;
 
+import com.openlibrary.app.GoogleUserInfoResponse;
+import com.openlibrary.app.user.User;
+import com.openlibrary.app.user.UserConverter;
+import com.openlibrary.app.user.UserInfo;
+import com.openlibrary.app.user.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +20,15 @@ public class AuthServiceImpl implements AuthService {
 
     private final GoogleAuthApi googleAuthApi;
 
-    public AuthServiceImpl(GoogleAuthProperties googleAuthProperties, GoogleAuthApi googleAuthApi) {
+    private final UserRepository userRepository;
+
+    private final UserConverter userConverter;
+
+    public AuthServiceImpl(GoogleAuthProperties googleAuthProperties, GoogleAuthApi googleAuthApi, UserRepository userRepository, UserConverter userConverter) {
         this.googleAuthProperties = googleAuthProperties;
         this.googleAuthApi = googleAuthApi;
+        this.userRepository = userRepository;
+        this.userConverter = userConverter;
     }
 
     @Override
@@ -32,13 +43,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean authenticate(String authCode) {
-        TokenRequestResponse response = googleAuthApi.token(authCode);
+    public UserInfo authenticate(String authCode) {
+        TokenRequestResponse tokenResponse = googleAuthApi.token(authCode);
+        GoogleUserInfoResponse userInfoResponse = googleAuthApi.userInfo(tokenResponse.getAccessToken());
+        User user = userRepository.findByEmail(userInfoResponse.getEmail())
+                .orElseGet(() ->
+                        userRepository.save(new User(
+                                userInfoResponse.getName(),
+                                userInfoResponse.getEmail(),
+                                userInfoResponse.getGender(),
+                                userInfoResponse.getFamilyName(),
+                                null,
+                                tokenResponse.getRefreshToken()
+                        ))
+                );
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                response.getAccessToken(),
-                null,
+                user.getId(),
+                tokenResponse.getAccessToken(),
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         ));
-        return true;
+        return userConverter.fromUser(user);
     }
 }
