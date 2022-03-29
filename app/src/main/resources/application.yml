@@ -6,9 +6,10 @@ google:
     auth:
       url: https://accounts.google.com/o/oauth2/v2/auth
       tokenUrl: https://oauth2.googleapis.com/token
+      userInfoUrl: https://www.googleapis.com/oauth2/v1/userinfo
       clientId: 525145220387-fd7014egeq81s9e9cbm38srcc61hg90l.apps.googleusercontent.com
       clientSecret: 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
       grantType: authorization_code
       redirectUri: http://localhost:8080/auth/login/oauth2/callback
       responseType: code
-      scope: https://www.googleapis.com/auth/books
+      scope: https://www.googleapis.com/auth/books https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
