@@ -26,7 +26,7 @@ public class ResourceOwnerInterceptor implements HandlerInterceptor {
         if (isUser(authentication)) {
             Long requestUserId = extractRequestUserId(request);
             if (requestUserId != null) {
-                userRepository.findByName(authentication.getName())
+                userRepository.findById((Long) authentication.getPrincipal())
                         .ifPresentOrElse(
                                 user -> {
                                     if (!user.getId().equals(requestUserId))
