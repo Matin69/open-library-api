@@ -17,6 +17,6 @@ public class ShelvesController {
 
     @GetMapping("/mylibrary/bookshelves")
     public List<Shelf> getUserPrivateShelves(Authentication authentication) {
-        return shelvesService.getUserShelves((String) authentication.getPrincipal());
+        return shelvesService.getUserShelves((String) authentication.getCredentials());
     }
 }
