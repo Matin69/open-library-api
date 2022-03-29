@@ -1,5 +1,6 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.GoogleCollectionResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService {
                             Integer startIndex,
                             Integer maxResult,
                             String projection) {
-        VolumesCollectionResponse response = volumesApi.list(query, filter, startIndex, maxResult, projection);
+        GoogleCollectionResponse<VolumeResponse> response = volumesApi.list(query, filter, startIndex, maxResult, projection);
         return response.getItems().stream()
                 .map(bookConverter::toBook)
                 .collect(Collectors.toSet());

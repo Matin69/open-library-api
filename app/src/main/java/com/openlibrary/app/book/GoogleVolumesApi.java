@@ -1,7 +1,10 @@
 package com.openlibrary.app.book;
 
+import com.openlibrary.app.GoogleCollectionResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -23,12 +26,12 @@ public class GoogleVolumesApi {
         this.restTemplate = restTemplate;
     }
 
-    public VolumesCollectionResponse list(@NonNull String query,
-                                          @Nullable String filter,
-                                          @Nullable Integer startIndex,
-                                          @Nullable Integer maxResult,
-                                          @Nullable String projection) {
-        ResponseEntity<VolumesCollectionResponse> response = restTemplate.getForEntity(
+    public GoogleCollectionResponse<VolumeResponse> list(@NonNull String query,
+                                                         @Nullable String filter,
+                                                         @Nullable Integer startIndex,
+                                                         @Nullable Integer maxResult,
+                                                         @Nullable String projection) {
+        ResponseEntity<GoogleCollectionResponse<VolumeResponse>> response = restTemplate.exchange(
                 UriComponentsBuilder.fromPath("/volumes")
                         .queryParam("q", query)
                         .queryParamIfPresent("filter", Optional.ofNullable(filter))
@@ -39,7 +42,10 @@ public class GoogleVolumesApi {
                         .build()
                         .toUri()
                         .toString(),
-                VolumesCollectionResponse.class
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
         );
         return response.getBody();
     }

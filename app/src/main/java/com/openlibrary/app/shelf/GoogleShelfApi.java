@@ -1,6 +1,8 @@
 package com.openlibrary.app.shelf;
 
+import com.openlibrary.app.GoogleCollectionResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,14 +20,15 @@ public class GoogleShelfApi {
         this.restTemplate = restTemplate;
     }
 
-    public ShelvesCollectionResponse getMyLibraryShelves(String accessToken) {
+    public GoogleCollectionResponse<Shelf> getMyLibraryShelves(String accessToken) {
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.add("Authorization", "Bearer " + accessToken);
-        ResponseEntity<ShelvesCollectionResponse> response = restTemplate.exchange(
+        ResponseEntity<GoogleCollectionResponse<Shelf>> response = restTemplate.exchange(
                 UriComponentsBuilder.fromPath("/mylibrary/bookshelves").toUriString(),
                 HttpMethod.GET,
                 new HttpEntity<>(requestHeaders),
-                ShelvesCollectionResponse.class
+                new ParameterizedTypeReference<>() {
+                }
         );
         return response.getBody();
     }

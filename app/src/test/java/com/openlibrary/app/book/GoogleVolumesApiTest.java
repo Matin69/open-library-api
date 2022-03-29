@@ -1,6 +1,7 @@
 package com.openlibrary.app.book;
 
 import com.openlibrary.app.BadRequestException;
+import com.openlibrary.app.GoogleCollectionResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,7 @@ class GoogleVolumesApiTest {
 
     @Test
     void list() {
-        VolumesCollectionResponse result = googleVolumesApi.list(
+        GoogleCollectionResponse<VolumeResponse> result = googleVolumesApi.list(
                 "hamlet",
                 null,
                 0,
