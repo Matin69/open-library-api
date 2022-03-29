@@ -1,8 +1,10 @@
 package com.openlibrary.app.security;
 
+import com.openlibrary.app.user.UserInfo;
+
 public interface AuthService {
 
     String getAuthServerUri();
 
-    boolean authenticate(String authCode);
+    UserInfo authenticate(String authCode);
 }
