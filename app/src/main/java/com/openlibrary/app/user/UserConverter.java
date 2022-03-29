@@ -9,7 +9,9 @@ public class UserConverter {
         return new UserInfo(
                 user.getId(),
                 user.getName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getGender(),
+                user.getFamilyName()
         );
     }
 

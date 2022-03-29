@@ -19,7 +19,18 @@ public class User {
 
     private String email;
 
+    private String gender;
+
+    private String familyName;
+
     private String password;
+
+    public User(String name, String email, String gender, String familyName, String password) {
+        this(name, email, password);
+        this.gender = gender;
+        this.familyName = familyName;
+        this.password = password;
+    }
 
     public User(String name, String email, String password) {
         this.name = name;

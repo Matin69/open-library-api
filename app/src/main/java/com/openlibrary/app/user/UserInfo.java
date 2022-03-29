@@ -14,4 +14,8 @@ public class UserInfo {
     private String name;
 
     private String email;
+
+    private String gender;
+
+    private String familyName;
 }
