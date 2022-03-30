@@ -1,6 +1,5 @@
 package com.openlibrary.app.security;
 
-import com.openlibrary.app.GoogleUserInfoResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

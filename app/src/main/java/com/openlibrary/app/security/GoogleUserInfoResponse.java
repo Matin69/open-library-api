@@ -1,4 +1,4 @@
-package com.openlibrary.app;
+package com.openlibrary.app.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

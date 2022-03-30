@@ -1,6 +1,5 @@
 package com.openlibrary.app.security;
 
-import com.openlibrary.app.GoogleUserInfoResponse;
 import com.openlibrary.app.user.User;
 import com.openlibrary.app.user.UserConverter;
 import com.openlibrary.app.user.UserInfo;
