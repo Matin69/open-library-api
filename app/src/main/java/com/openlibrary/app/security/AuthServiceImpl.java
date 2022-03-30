@@ -22,13 +22,10 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
 
-    private final UserConverter userConverter;
-
-    public AuthServiceImpl(GoogleAuthProperties googleAuthProperties, GoogleAuthApi googleAuthApi, UserRepository userRepository, UserConverter userConverter) {
+    public AuthServiceImpl(GoogleAuthProperties googleAuthProperties, GoogleAuthApi googleAuthApi, UserRepository userRepository) {
         this.googleAuthProperties = googleAuthProperties;
         this.googleAuthApi = googleAuthApi;
         this.userRepository = userRepository;
-        this.userConverter = userConverter;
     }
 
     @Override
@@ -62,6 +59,6 @@ public class AuthServiceImpl implements AuthService {
                 tokenResponse.getAccessToken(),
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         ));
-        return userConverter.fromUser(user);
+        return UserConverter.fromUser(user);
     }
 }

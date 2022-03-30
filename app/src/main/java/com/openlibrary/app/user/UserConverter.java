@@ -1,11 +1,8 @@
 package com.openlibrary.app.user;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class UserConverter {
 
-    public UserInfo fromUser(User user) {
+    public static UserInfo fromUser(User user) {
         return new UserInfo(
                 user.getId(),
                 user.getName(),
@@ -15,7 +12,7 @@ public class UserConverter {
         );
     }
 
-    public User toUser(UserCreateRequest userCreateRequest) {
+    public static User toUser(UserCreateRequest userCreateRequest) {
         return new User(
                 userCreateRequest.getName(),
                 userCreateRequest.getEmail(),

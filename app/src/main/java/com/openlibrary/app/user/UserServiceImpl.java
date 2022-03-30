@@ -8,24 +8,21 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserConverter userConverter;
-
-    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userConverter = userConverter;
     }
 
     @Override
     public UserInfo create(UserCreateRequest userCreateRequest) {
-        User requestUser = userConverter.toUser(userCreateRequest);
-        return userConverter.fromUser(userRepository.save(requestUser));
+        User requestUser = UserConverter.toUser(userCreateRequest);
+        return UserConverter.fromUser(userRepository.save(requestUser));
     }
 
     @Override
     public UserInfo get(Long userId) {
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(ResourceNotFoundException::new);
-        return userConverter.fromUser(foundUser);
+        return UserConverter.fromUser(foundUser);
     }
 
     @Override
