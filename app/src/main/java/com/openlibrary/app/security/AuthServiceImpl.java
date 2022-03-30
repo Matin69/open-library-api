@@ -59,6 +59,6 @@ public class AuthServiceImpl implements AuthService {
                 tokenResponse.getAccessToken(),
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         ));
-        return UserConverter.fromUser(user);
+        return UserConverter.toUserInfo(user);
     }
 }

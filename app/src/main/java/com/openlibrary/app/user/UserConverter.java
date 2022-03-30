@@ -2,7 +2,7 @@ package com.openlibrary.app.user;
 
 public class UserConverter {
 
-    public static UserInfo fromUser(User user) {
+    public static UserInfo toUserInfo(User user) {
         return new UserInfo(
                 user.getId(),
                 user.getName(),

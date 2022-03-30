@@ -15,14 +15,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo create(UserCreateRequest userCreateRequest) {
         User requestUser = UserConverter.toUser(userCreateRequest);
-        return UserConverter.fromUser(userRepository.save(requestUser));
+        return UserConverter.toUserInfo(userRepository.save(requestUser));
     }
 
     @Override
     public UserInfo get(Long userId) {
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(ResourceNotFoundException::new);
-        return UserConverter.fromUser(foundUser);
+        return UserConverter.toUserInfo(foundUser);
     }
 
     @Override
